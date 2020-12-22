@@ -1,0 +1,24 @@
+
+/*
+ * for the TreeView according to
+ * https://stackoverflow.com/questions/45546717/gtk-treeview-styling
+ * the only one I could find that works
+ */
+.view .button {
+	background: Grey;
+	font-weight: bold;
+	text-shadow: none;
+	box-shadow: none;
+}
+
+/*
+ * for later version of Gtk
+ */
+treeview.view header button {
+	color: Black;
+	background: Grey;
+	font-weight: bold;
+	text-shadow: none;
+	box-shadow: none;
+}
+
