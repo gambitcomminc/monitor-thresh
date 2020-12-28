@@ -26,6 +26,6 @@ Example usage:
 
 ./monitor-thresh.py --host test.mosquitto.org --topic 'BCDS/#' --serial sn --field data.temp.value --thresh 70000
 
-![screenshot](https://github.com/gambitcomminc/mqtt-stats/blob/master/monitor-thresh-readonly.png)
+![screenshot](https://github.com/gambitcomminc/monitor-thresh/blob/master/monitor-thresh-readonly.png)
 
 3-minute video at (https://www.youtube.com/watch?v=FXu8f35PD3o) .
