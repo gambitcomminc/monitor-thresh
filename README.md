@@ -22,11 +22,18 @@ This python package requires
 
 ## Usage
 
-Example usage:
+Example usage 1:
 
-./monitor-thresh.py --host test.mosquitto.org --topic 'BCDS/#' --serial sn --field data.temp.value --thresh 70000
+    ./monitor-thresh.py --host test.mosquitto.org --topic 'BCDS/#' --serial sn --field data.temp.value --thresh 70000
 
 <IMG src=monitor-thresh-readonly.png width=400>
+  
 ![screenshot](https://github.com/gambitcomminc/monitor-thresh/blob/master/monitor-thresh-readonly.png)
 
 3-minute video at (https://www.youtube.com/watch?v=FXu8f35PD3o) .
+
+Example usage 2:
+
+    python3 monitor-thresh.py -h test.mosquitto.org -p 1883 --topic 'go-eCharger/#' -S wss -F amp -V 31
+
+<IMG src=monitor-thresh-goecharger.png width=400>
