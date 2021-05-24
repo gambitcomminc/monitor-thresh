@@ -37,3 +37,9 @@ Example usage 2:
     python3 monitor-thresh.py -h test.mosquitto.org -p 1883 --topic 'go-eCharger/#' -S wss -F amp -V 31
 
 <IMG src=monitor-thresh-goecharger.png width=400>
+
+Example usage 3:
+
+    python3 monitor-thresh.py --host YOUR-AWS-ENDPOINT.iot.us-east-2.amazonaws.com --port 8883 --tls --certfile mimic-4-certificate.pem.crt --keyfile mimic-4-private.pem.key --cafile ~/mimic/iot/mosquitto/amazon-tls/root-ca-cert.pem --topic '$aws/things/+/shadow/update' --field state.reported.temp --serial state.reported.color
+
+2-minute video at (https://www.youtube.com/watch?v=43wuZnvkOAg) .
