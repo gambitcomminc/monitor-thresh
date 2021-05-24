@@ -240,11 +240,18 @@ def on_message(client, userdata, msg):
 #    logging.debug ("jsondict " + str(jsondict))
 
     # get the (unique) serial key value; ignore if not there
-    try:
-        key = jsondict[main.key]
-    except Exception as e:
-        main.messages_ignored += 1
-        return
+    strarray = main.key.split ('.')
+    tmpdict = jsondict
+    for idx in strarray: 
+        try:
+            retval = tmpdict[idx]
+        except Exception as e:
+            print ('ERROR cannot find JSON field ' + idx)
+            print (str(e))
+            main.messages_ignored += 1
+            return
+        tmpdict = retval
+    key = tmpdict
 
 #    logging.debug ("sensor " + str(key))
 
