@@ -198,8 +198,8 @@ class Key():
 ###########################################################################
 # MQTT subscriber code
 # The callback for when the client receives a CONNACK response from the server.
-def on_connect(client, userdata, flags, rc):
-	logging.debug ("MQTT client connected with result code "+str(rc))
+def on_connect(client, userdata, flags, rc, properties=""):
+	logging.debug ("MQTT client connected with result code "+str(rc)+" "+str(properties))
 
 	# Subscribing in on_connect() means that if we lose the connection and
 	# reconnect then subscriptions will be renewed.
@@ -338,7 +338,7 @@ def on_disconnect(client, userdata, rc):
     # could keep track of re-connects
 
 def subscriber_client():
-	client = mqtt.Client(main.clientid)
+	client = mqtt.Client(main.clientid, protocol=main.protocol)
 	client.on_connect = on_connect
 	client.on_message = on_message
 	client.on_disconnect = on_disconnect
@@ -378,6 +378,7 @@ class MyApp:
 		self.certfile = None
 		self.keyfile = None
 		self.required = ssl.CERT_NONE
+		self.protocol = mqtt.MQTTv311
 
 		self.is_stopped = False
 		self.is_paused = False
@@ -417,6 +418,7 @@ class MyApp:
 		print ("\t[-C|--certfile]    client certificate file for TLS")
 		print ("\t[-K|--keyfile]     client private key file for TLS")
 		print ("\t[-R|--required NONE|OPTIONAL|REQUIRED] certificate required")
+		print ("\t[-M|--MQTT MQTTv31|MQTTv311|MQTTv5] MQTT protocol version")
 		return
 
 	def start(self):
@@ -438,7 +440,7 @@ class MyApp:
 	###############################
 	def command_line(self):
 		try:
-			opts, args = getopt.getopt(sys.argv[1:], "h:p:S:F:V:vi:u:P:t:q:Tc:C:K:R:", ["host=", "port=", "serial=", "field=", "thresh=", "verbose", "id=", "user=", "pass=", "topic=", "qos=", "tls", "cafile=", "certfile=", "keyfile=", "required="])
+			opts, args = getopt.getopt(sys.argv[1:], "h:p:S:F:V:vi:u:P:t:q:Tc:C:K:R:M:", ["host=", "port=", "serial=", "field=", "thresh=", "verbose", "id=", "user=", "pass=", "topic=", "qos=", "tls", "cafile=", "certfile=", "keyfile=", "required=", "MQTT="])
 		except getopt.GetoptError as err:
 			# print help information and exit:
 			logging.error (str(err)) # will print something like "option -a not recognized"
@@ -486,6 +488,15 @@ class MyApp:
 					self.required = ssl.CERT_REQUIRED
 				else:
 					assert False, "needs to be one of NONE, OPTIONAL, REQUIRED"
+			elif o in ("-M", "--MQTT"):
+				if a == "MQTTv31":
+					self.protocol = mqtt.MQTTv31
+				elif a == "MQTTv311":
+					self.protocol = mqtt.MQTTv311
+				elif a == "MQTTv5":
+					self.protocol = mqtt.MQTTv5
+				else:
+					assert False, "needs to be one of MQTTv31, MQTTv311, MQTTv5"
 			else:
 			    assert False, "unhandled option"
 
