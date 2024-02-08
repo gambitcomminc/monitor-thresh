@@ -22,7 +22,7 @@ This python package requires
 
 ## Usage
 
-### Example usage 1:
+### Example usage 1 with basics from MIMIC MQTT Lab:
 
     ./monitor-thresh.py --host test.mosquitto.org --topic 'BCDS/#' --serial sn --field data.temp.value --thresh 70000
 
@@ -32,13 +32,13 @@ This python package requires
 
 3-minute video at https://www.youtube.com/watch?v=FXu8f35PD3o .
 
-### Example usage 2:
+### Example usage 2 with some arbitrary topic:
 
     python3 monitor-thresh.py -h test.mosquitto.org -p 1883 --topic 'go-eCharger/#' -S wss -F amp -V 31
 
 <IMG src=monitor-thresh-goecharger.png width=400>
 
-### Example usage 3:
+### Example usage 3 with AWS IoT Core:
 
     python3 monitor-thresh.py --host YOUR-AWS-ENDPOINT.iot.us-east-2.amazonaws.com --port 8883 --tls --certfile mimic-4-certificate.pem.crt --keyfile mimic-4-private.pem.key --cafile ~/mimic/iot/mosquitto/amazon-tls/root-ca-cert.pem --topic '$aws/things/+/shadow/update' --field state.reported.temp --serial state.reported.color
 
@@ -47,3 +47,9 @@ This python package requires
 ### Example usage 4:
 
 See blog post at https://gambitcomm.blogspot.com/2022/11/how-to-scale-your-mqtt-lab-1000-sensors.html with 2-minute video.
+
+### Example usage 5 with Azure Event Grid:
+
+    python monitor-thresh.py -h mimic-event-grid.eastus-1.ts.eventgrid.azure.net -p 8883 -i mimic-client-sub -u mimic-client-sub -t BCDS/# -T -C ~/mimic/src/dynamic/mqtt/src/client.crt -K ~/mimic/src/dynamic/mqtt/src/client.pem -c ~/mimic/iot/mosquitto-1.4.5/mosquitto-tls/ca.crt -v
+
+3-minute video at https://youtu.be/ulb9bFHbzps?si=nxegk09Yr75CtxV-&t=20
