@@ -221,8 +221,8 @@ def on_message(client, userdata, msg):
     numbytes = len (msg.payload)
     now = time.time()
 
-#    if main.verbose:
-#        logging.debug (msg.topic + ' ' + str(numbytes) + ' ' + str(msg.payload))
+    if main.verbose:
+        logging.debug (msg.topic + ' ' + str(numbytes) + ' ' + str(msg.payload))
 
     main.messages_received += 1
 
@@ -329,7 +329,7 @@ def on_message(client, userdata, msg):
 
 
 # reconnect and re-subscribe
-def on_disconnect(client, userdata, rc):
+def on_disconnect(client, userdata, rc, properties=""):
 
     if rc != 0:
     	logging.error ("unexpected disconnect: " + str(rc))
@@ -423,6 +423,14 @@ class MyApp:
 
 	def start(self):
 		self.command_line()
+
+		if Gdk.Screen.get_default() == None:
+			display = os.environ.get("DISPLAY")
+			if display == None:
+				logging.error ("cannot open display: DISPLAY is not set")
+			else:
+				logging.error ("cannot open display " + display)
+			sys.exit(1)
 
 		self.load_styles()
 
